@@ -1,6 +1,3 @@
-Sure! Here's a cleaned-up, well-structured, and professional-looking version of your README in Markdown format:
-
----
 
 # 🧠 OCR Microservice System - DevOps Implementation
 
@@ -264,5 +261,3 @@ This monitoring setup gives you a full observability stack to:
 - GitOps flow is production-ready and can easily be activated with Git integration.
 
 ---
-
-Let me know if you'd like this exported to a `.md` file or used in a static documentation site like MkDocs or Docusaurus!
