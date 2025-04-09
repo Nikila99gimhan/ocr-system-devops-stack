@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ocr-model-project"
+version = "0.1.0"
+description = ""
+authors = ["VLTSankalpa <wltsankalpa@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+kserve = "^0.14.1"
+pillow = "^11.1.0"
+pytesseract = "^0.3.13"
+fastapi = "^0.115.8"
+requests = "^2.32.3"
+python-multipart = "^0.0.20"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

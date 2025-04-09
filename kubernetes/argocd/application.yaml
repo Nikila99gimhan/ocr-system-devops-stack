@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ocr-system
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: ocr-project
+  source:
+    # In a real environment, this would be your Git repository
+    repoURL: https://github.com/yourusername/ocr-system-repo.git
+    targetRevision: HEAD
+    path: kubernetes/ocr-system
+    # Specify we're using Helm
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ocr-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

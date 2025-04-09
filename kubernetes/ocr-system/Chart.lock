@@ -1,0 +1,9 @@
+dependencies:
+- name: model-service
+  repository: file://../model-service
+  version: 0.1.0
+- name: gateway-service
+  repository: file://../gateway-service
+  version: 0.1.0
+digest: sha256:c849636acd0b29a9a2df80730683575aa456174a11494493bd126f6ab55fb738
+generated: "2025-04-09T18:41:37.845231+05:30"

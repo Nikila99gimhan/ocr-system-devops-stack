@@ -1,0 +1,46 @@
+# Build stage
+FROM python:3.11-slim AS builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Poetry
+RUN pip install poetry==1.8.2
+
+# Set working directory
+WORKDIR /app
+
+# Copy Poetry configuration
+COPY pyproject.toml ./
+
+# Install dependencies in the virtual environment
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-interaction --no-ansi --no-root
+
+# Final stage
+FROM python:3.11-slim
+
+# Install gcc for psutil
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the necessary Python packages from the builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy service code
+COPY api-gateway.py ./
+
+# Expose the FastAPI port
+EXPOSE 8001
+
+# Run gateway service
+CMD ["uvicorn", "api-gateway:app", "--host", "0.0.0.0", "--port", "8001"]

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ocr-project
+  namespace: argocd
+spec:
+  description: OCR System Project for DevOps Assignment
+  # Source repositories
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: ocr-system
+      server: https://kubernetes.default.svc
+  # Allow cluster-scoped resources to be created
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
